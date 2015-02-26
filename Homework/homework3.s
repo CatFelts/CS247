@@ -1,0 +1,135 @@
+	.file	"homework3.c"
+	.text
+	.globl	cread_alt
+	.type	cread_alt, @function
+cread_alt:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -24(%rbp)
+	movl	$0, -12(%rbp)
+	leaq	-12(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	cmpq	$0, -24(%rbp)
+	je	.L2
+	movq	-24(%rbp), %rax
+	movl	(%rax), %eax
+	jmp	.L3
+.L2:
+	movq	-8(%rbp), %rax
+	movl	(%rax), %eax
+.L3:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	cread_alt, .-cread_alt
+	.globl	switch_prob
+	.type	switch_prob, @function
+switch_prob:
+.LFB1:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -20(%rbp)
+	movl	%esi, -24(%rbp)
+	movl	-20(%rbp), %eax
+	movl	%eax, -4(%rbp)
+	movl	-24(%rbp), %eax
+	subl	$50, %eax
+	cmpl	$5, %eax
+	ja	.L6
+	movl	%eax, %eax
+	movq	.L8(,%rax,8), %rax
+	jmp	*%rax
+	.section	.rodata
+	.align 8
+	.align 4
+.L8:
+	.quad	.L7
+	.quad	.L9
+	.quad	.L7
+	.quad	.L10
+	.quad	.L11
+	.quad	.L12
+	.text
+.L7:
+	sall	$2, -4(%rbp)
+	jmp	.L13
+.L9:
+	addl	$10, -4(%rbp)
+	jmp	.L13o
+.L10:
+	movl	-4(%rbp), %eax
+	leal	3(%rax), %edx
+	testl	%eax, %eax
+	cmovs	%edx, %eax
+	sarl	$2, %eax
+	movl	%eax, -4(%rbp)
+	jmp	.L13
+.L11:
+	movl	-4(%rbp), %edx
+	movl	%edx, %eax
+	addl	%eax, %eax
+	addl	%edx, %eax
+	movl	%eax, -4(%rbp)
+.L12:
+	movl	-4(%rbp), %eax
+	imull	-4(%rbp), %eax
+	movl	%eax, -4(%rbp)
+.L6:
+	addl	$10, -4(%rbp)
+.L13:
+	movl	-4(%rbp), %eax
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	switch_prob, .-switch_prob
+	.section	.rodata
+	.align 8
+.LC0:
+	.string	"switch_prob for a = %d and n = %d ====> %d\n"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB2:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movl	$3, -8(%rbp)
+	movl	$5, -4(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%edx, %esi
+	movl	%eax, %edi
+	call	switch_prob
+	movl	%eax, %ecx
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	movl	%eax, %esi
+	movl	$.LC0, %edi
+	movl	$0, %eax
+	call	printf
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 4.8.2-19ubuntu1) 4.8.2"
+	.section	.note.GNU-stack,"",@progbits

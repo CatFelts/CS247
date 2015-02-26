@@ -1,0 +1,63 @@
+	.file	"homework6.c"
+	.text
+	.globl	var_prod_ele
+	.type	var_prod_ele, @function
+var_prod_ele:
+.LFB0:
+	.cfi_startproc
+	pushl	%ebp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 5, -8
+	movl	%esp, %ebp
+	.cfi_def_cfa_register 5
+	pushl	%esi
+	pushl	%ebx
+	subl	$16, %esp
+	.cfi_offset 6, -12
+	.cfi_offset 3, -16
+	movl	8(%ebp), %eax
+	leal	-1(%eax), %edx
+	movl	%edx, -16(%ebp)
+	movl	8(%ebp), %edx
+	leal	-1(%edx), %ecx
+	movl	%ecx, -12(%ebp)
+	movl	$0, -20(%ebp)
+	jmp	.L2
+.L3:
+	movl	%eax, %ebx
+	movl	20(%ebp), %ecx
+	imull	%ebx, %ecx
+	leal	0(,%ecx,4), %ebx
+	movl	12(%ebp), %ecx
+	addl	%ecx, %ebx
+	movl	8(%ebp), %ecx
+	movl	(%ebx,%ecx,4), %ebx
+	movl	%edx, %esi
+	movl	8(%ebp), %ecx
+	imull	%esi, %ecx
+	leal	0(,%ecx,4), %esi
+	movl	16(%ebp), %ecx
+	addl	%ecx, %esi
+	movl	24(%ebp), %ecx
+	movl	(%esi,%ecx,4), %ecx
+	imull	%ebx, %ecx
+	addl	%ecx, -20(%ebp)
+	subl	$1, 8(%ebp)
+.L2:
+	cmpl	$0, 8(%ebp)
+	jns	.L3
+	movl	-20(%ebp), %eax
+	addl	$16, %esp
+	popl	%ebx
+	.cfi_restore 3
+	popl	%esi
+	.cfi_restore 6
+	popl	%ebp
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	var_prod_ele, .-var_prod_ele
+	.ident	"GCC: (Ubuntu 4.8.2-19ubuntu1) 4.8.2"
+	.section	.note.GNU-stack,"",@progbits

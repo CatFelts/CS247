@@ -1,0 +1,59 @@
+#include <stdio.h>
+
+//feltsc
+//3.57
+int cread_alt(int *xp){
+  int temp = 0;
+  int *ptemp = &temp;
+  return *(xp ? xp : ptemp);
+  //int t = 0;
+  //int *p = (xp? xp : &t);
+  //return *p;
+}
+
+//3.59
+int switch_prob(int x, int n){
+  int result = x;
+  
+  switch(n){
+
+  case 50:
+  case 52:
+    result = result*4;
+    break;
+
+  case 51:
+    result = result + 10;
+    break;
+   
+  case 53:
+    result = result/4;
+    break;
+  
+  case 54:
+    result = 3*result;
+    /*fall through*/
+
+  case 55:
+    result = result * result;
+    /*fall through*/
+
+  default:
+    result += 10;
+  }
+  
+  return result;
+}
+
+int main(void){
+  int a = 4;
+  int *pa = &a;
+  printf("cread_alt for a = %d and pa = %p =====> %d", a, pa, cread_alt(pa));
+  int b = 4;
+  int n = 53;
+  printf("switch_prob for b = %d and n = %d =====> %d", b, n, switch_prob(b, n));
+}
+  
+
+
+

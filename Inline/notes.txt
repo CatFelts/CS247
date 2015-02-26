@@ -1,0 +1,57 @@
+Basic Inline:
+	asm("assembly code");
+	-only contains intstructions
+	-for multiple instructions, you need multiple lines, so include a new line and tab character for correct formatting!
+	EXAMPLE:
+	
+	asm("movl %eax, %ebx\n\t"
+	    "movl $56, %esi\n\t"
+	    "movl %ecx, $label(%edx, %ebx, $4)");
+
+	
+	-able to refer to C variable with the immediate '$' identifier
+
+Extended Asm:
+	-able to specify input registers, output registers, and a list of clobbered registers
+	asm( assembler template
+	   : output operands			/* optional */
+	   : input operands			/* optional */
+	   : list of clobbered registers	/* optional */
+	   );
+
+	EXAMPLE:
+	int a=10, b;
+	asm("movl %1, %%eax;
+	     movl %%eax, %0;"
+	    : "=r" (b)
+	    : "r" (a)
+	    : "%eax"
+	    );
+
+	'b' -> the output operand, referred to by %0
+	'a' -> the input operand, referred to by %1
+	'r' -> costraint on the operands(this '=' modifier says this register is an output and write only)
+	2 %% prefix -> tells GCC this is a register
+	1 % prefix -> tells GCC this is an operand
+	-this example makes the value of 'b' equal to that of 'a'
+
+	
+	Operands:
+		General Form:
+		"constraint"(C expression)
+
+		-for output operands, there will be an additional modifier (such as '=')
+		-used to identify which registers are to be used && to decide the addressing modes for operands
+		-if there are a total of n operands(input and output inclusive) first output operand is numbered '0', continuing in increasing order, last input operand is numbered 'n-1'
+		- output operand expressions must be lvalues
+		
+
+	Volatile:
+		asm volatile( ... : ... : ... : ... );
+
+		-use this when you have to be VERY careful
+		-keeps things from being moved (or deleted) by the optimizer
+
+More About Constraints:
+	1. Register operand constraint(r)-
+	  

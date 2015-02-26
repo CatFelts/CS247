@@ -1,0 +1,22 @@
+1. Syntax Overview:
+   make [option] [target]
+   make requires a makefile, if its not named makefile nor Makefile, use -f option
+   target is a tag (name defined) in makefile
+
+2. Basic Syntax
+   target: file	 file2 file3 ... fileN
+   <tab> command1
+   <tab> command2
+   <tab> ...
+   <tab> commandN
+
+
+target --> the output file
+file1-fileN --> dependency list
+command1-commandN --> rules
+
+Notice: order matters!
+make will not read the next target if it is not in the dependecy list
+
+3. Phony Targets, Macros and Special Characters
+   

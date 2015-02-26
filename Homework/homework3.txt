@@ -1,0 +1,34 @@
+
+homework3.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <cread_alt>:
+   0:	c7 44 24 fc 00 00 00 	movl   $0x0,-0x4(%rsp)
+   7:	00 
+   8:	48 8d 44 24 fc       	lea    -0x4(%rsp),%rax
+   d:	48 85 ff             	test   %rdi,%rdi
+  10:	48 0f 44 f8          	cmove  %rax,%rdi
+  14:	8b 07                	mov    (%rdi),%eax
+  16:	c3                   	retq   
+
+0000000000000017 <switch_prob>:
+  17:	83 ee 32             	sub    $0x32,%esi
+  1a:	83 fe 05             	cmp    $0x5,%esi
+  1d:	77 27                	ja     46 <switch_prob+0x2f>
+  1f:	89 f6                	mov    %esi,%esi
+  21:	ff 24 f5 00 00 00 00 	jmpq   *0x0(,%rsi,8)
+  28:	8d 04 bd 00 00 00 00 	lea    0x0(,%rdi,4),%eax
+  2f:	c3                   	retq   
+  30:	8d 47 0a             	lea    0xa(%rdi),%eax
+  33:	c3                   	retq   
+  34:	8d 47 03             	lea    0x3(%rdi),%eax
+  37:	85 ff                	test   %edi,%edi
+  39:	0f 49 c7             	cmovns %edi,%eax
+  3c:	c1 f8 02             	sar    $0x2,%eax
+  3f:	c3                   	retq   
+  40:	8d 3c 7f             	lea    (%rdi,%rdi,2),%edi
+  43:	0f af ff             	imul   %edi,%edi
+  46:	8d 47 0a             	lea    0xa(%rdi),%eax
+  49:	c3                   	retq   

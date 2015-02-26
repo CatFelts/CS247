@@ -1,0 +1,58 @@
+//Cat Felts
+//W01032567
+
+/*
+3.60
+A.
+  let Xa = start address of A
+  &A[i][j][k] = Xa + L(T(S*i + j) + k)
+B.
+  T = 11;
+  S = 9;
+  R = 5;
+
+*/
+
+
+
+/*
+3.61
+*/
+
+int var_prod_ele(int n, int A[n][n], int B[n][n], int i, int k){
+  int result = 0;
+  
+  for(n = n-1 ; n>= 0 ; n--){
+    result += A[i][n] * B[n][k];
+  }
+  return result;
+}
+
+int otherprog(int n , int A[n][n], int B[n][n], int i, int k){
+  int j;
+  int result = 0;
+  for(j = 0; j<n; j++){
+    result += A[i][j] * B[j][k];
+  }
+  return result;
+}
+#include <stdio.h>
+#define N 4
+int main(void){
+  int first[N][N] =
+    {{1, 2, 3, 4},
+     {1, 2, 4, 5},
+     {5, 4, 3, 2},
+     {3, 2, 5, 7} };
+  int second[N][N] = 
+     {{1, 2, 3, 4},
+     {1, 2, 4, 5},
+     {5, 4, 3, 2},
+     {3, 2, 5, 7} };
+
+  int firstProd = var_prod_ele(N, first, second, 2, 3);
+  int secondProd = otherprog(N, first, second, 2, 3);
+  printf("my prod = %d\nsecond prod =%d\n", firstProd, secondProd);
+}
+
+
